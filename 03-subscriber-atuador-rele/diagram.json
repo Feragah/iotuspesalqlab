@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "author": "Fernando",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "rele1", "top": -30, "left": 220, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 100,
+      "left": 440,
+      "attrs": { "color": "red", "label": "Ventilador" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 100,
+      "left": 360,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "rele1:VCC", "esp:3V3",    "red",    [ "h0" ] ],
+    [ "rele1:GND", "esp:GND.2",  "black",  [ "h0" ] ],
+    [ "rele1:IN",  "esp:26",     "green",  [ "h0" ] ],
+
+    [ "esp:3V3",   "led1:A",     "orange", [ "v0" ] ],
+    [ "led1:C",    "r1:1",       "black",  [ "h0" ] ],
+    [ "r1:2",      "rele1:COM",  "black",  [ "h0" ] ],
+    [ "rele1:NO",  "esp:GND.1",  "black",  [ "h0" ] ],
+
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ]
+  ]
+}
